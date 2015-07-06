@@ -1,17 +1,18 @@
 // intercept the URL out to the oauth service
-var _launchLogin = Package.oauth.OAuth.launchLogin;
-Package.oauth.OAuth.launchLogin = function (options) {
+if (Meteor.settings.public.test){
+  var _launchLogin = Package.oauth.OAuth.launchLogin;
+  Package.oauth.OAuth.launchLogin = function (options) {
 
-  var args = arguments;
+    var args = arguments;
 
-  // Make sure a fake options implementation exists for the login service
-  if (_getFakeOptionsFor[options.loginService]) {
-    args = [_getFakeOptionsFor[options.loginService](options)];
-  }
+    // Make sure a fake options implementation exists for the login service
+    if (_getFakeOptionsFor[options.loginService]) {
+      args = [_getFakeOptionsFor[options.loginService](options)];
+    }
 
-  return _launchLogin.apply(this, args);
-};
-
+    return _launchLogin.apply(this, args);
+  };
+}
 
 var _getFakeOptionsFor = {
   'google': function (options) {

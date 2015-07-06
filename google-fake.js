@@ -1,7 +1,8 @@
-HttpInterceptor = Package['xolvio:http-interceptor'].HttpInterceptor;
-HttpInterceptor.registerInterceptor('https://www.googleapis.com', Meteor.absoluteUrl('fake.www.googleapis.com'));
-HttpInterceptor.registerInterceptor('https://accounts.google.com', Meteor.absoluteUrl('fake.accounts.google.com'));
-
+if (process.env.VELOCITY){
+  HttpInterceptor = Package['xolvio:http-interceptor'].HttpInterceptor;
+  HttpInterceptor.registerInterceptor('https://www.googleapis.com', Meteor.absoluteUrl('fake.www.googleapis.com'));
+  HttpInterceptor.registerInterceptor('https://accounts.google.com', Meteor.absoluteUrl('fake.accounts.google.com'));
+}
 
 Router.route('fake.accounts.google.com/o/oauth2/auth', function () {
   var parameters = _fixIronRouterBug(this.request.query);
